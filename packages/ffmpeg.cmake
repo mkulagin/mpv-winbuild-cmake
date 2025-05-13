@@ -72,7 +72,6 @@ ExternalProject_Add(ffmpeg
 
         --enable-amf
         --enable-dxva2
-        --enable-libmfx
         --enable-d3d11va
 
         --disable-vaapi
