@@ -39,7 +39,6 @@ ExternalProject_Add(mpv
         -Dopenal=disabled
         -Dspirv-cross=enabled
         -Dvulkan=disabled
-        -Dlibplacebo=disabled
         -Dvapoursynth=disabled
         ${mpv_gl}
         -Dc_args='-Wno-error=int-conversion'
