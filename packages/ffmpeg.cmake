@@ -4,7 +4,6 @@ ExternalProject_Add(ffmpeg
         avisynth-headers
         ${nvcodec_headers}
         bzip2
-        lame
         lcms2
         openssl
         libssh
