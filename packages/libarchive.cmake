@@ -18,6 +18,7 @@ ExternalProject_Add(libarchive
         -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_FILE}
         -DCMAKE_INSTALL_PREFIX=${MINGW_INSTALL_PREFIX}
         -DCMAKE_FIND_ROOT_PATH=${MINGW_INSTALL_PREFIX}
+        -DCMAKE_INSTALL_LIBDIR=lib
         -DBUILD_SHARED_LIBS=OFF
         -DENABLE_ZLIB=ON
         -DENABLE_ZSTD=ON
@@ -29,7 +30,6 @@ ExternalProject_Add(libarchive
         -DENABLE_LZO=ON
         -DENABLE_LZMA=ON
         -DENABLE_CPIO=OFF
-        -DENABLE_CNG=OFF
         -DENABLE_CAT=OFF
         -DENABLE_TAR=OFF
         -DENABLE_WERROR=OFF
