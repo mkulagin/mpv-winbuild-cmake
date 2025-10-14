@@ -4,15 +4,11 @@ ExternalProject_Add(ffmpeg
         avisynth-headers
         ${nvcodec_headers}
         bzip2
-        lame
         lcms2
         openssl
         libssh
         libsrt
         libass
-        libbluray
-        libdvdnav
-        libdvdread
         libmodplug
         libpng
         libsoxr
@@ -35,6 +31,7 @@ ExternalProject_Add(ffmpeg
     GIT_REPOSITORY https://github.com/FFmpeg/FFmpeg.git
     SOURCE_DIR ${SOURCE_LOCATION}
     GIT_CLONE_FLAGS "--sparse --filter=tree:0"
+    GIT_TAG release/7.1
     GIT_CLONE_POST_COMMAND "sparse-checkout set --no-cone /* !tests/ref/fate"
     PATCH_COMMAND ${EXEC} git apply ${CMAKE_CURRENT_SOURCE_DIR}/ffmpeg-*.patch
     UPDATE_COMMAND ""
@@ -63,7 +60,6 @@ ExternalProject_Add(ffmpeg
         --disable-protocols
         --disable-filters
         --disable-doc
-        --disable-postproc
         --disable-programs
         --disable-gray
         --disable-swscale-alpha
@@ -72,7 +68,6 @@ ExternalProject_Add(ffmpeg
 
         --enable-amf
         --enable-dxva2
-        --enable-libmfx
         --enable-d3d11va
 
         --disable-vaapi
