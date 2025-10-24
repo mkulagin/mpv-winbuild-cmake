@@ -46,11 +46,12 @@ ExternalProject_Add(ffmpeg
         rubberband
         libva
         openal-soft
-    GIT_REPOSITORY https://github.com/FFmpeg/FFmpeg.git
+    GIT_REPOSITORY https://github.com/mkulagin/FFmpeg.git
     SOURCE_DIR ${SOURCE_LOCATION}
     GIT_CLONE_FLAGS "--sparse --filter=tree:0"
     GIT_CLONE_POST_COMMAND "sparse-checkout set --no-cone /* !tests/ref/fate"
     UPDATE_COMMAND ""
+    GIT_TAG n8.0-mod
     CONFIGURE_COMMAND ${EXEC} CONF=1 <SOURCE_DIR>/configure
         --cross-prefix=${TARGET_ARCH}-
         --prefix=${MINGW_INSTALL_PREFIX}
