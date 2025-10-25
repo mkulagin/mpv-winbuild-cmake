@@ -70,15 +70,13 @@ jobs:
         uses: actions/cache/restore@main
         with:
           path: build_${{ matrix.bit }}
-          key: ${{ secrets.CACHE_VERSION }}-gcc-${{ matrix.bit }}_toolchain-${{ github.run_id }}
-          restore-keys: |
-            ${{ secrets.CACHE_VERSION }}-gcc-${{ matrix.bit }}_toolchain
+          key: ${{ secrets.CACHE_VERSION }}-gcc-${{ matrix.bit }}_toolchain-gcc
 
       - name: Loading repository cache
         uses: actions/cache/restore@main
         with:
           path: src_packages
-          key: ${{ secrets.CACHE_VERSION }}-repository-${{ github.run_id }}
+          key: ${{ secrets.CACHE_VERSION }}-repository-gcc
           restore-keys: |
             ${{ secrets.CACHE_VERSION }}-repository
 
@@ -152,14 +150,14 @@ jobs:
         if: always()
         with:
           path: build_${{ matrix.bit }}
-          key: ${{ secrets.CACHE_VERSION }}-gcc-${{ matrix.bit }}_toolchain-${{ github.run_id }}
+          key: ${{ secrets.CACHE_VERSION }}-gcc-${{ matrix.bit }}_toolchain-gcc
 
       - name: Saving repository cache
         uses: actions/cache/save@main
         if: false
         with:
           path: src_packages
-          key: ${{ secrets.CACHE_VERSION }}-repository-${{ github.run_id }}
+          key: ${{ secrets.CACHE_VERSION }}-repository-gcc
 
       - name: Saving release_${{ matrix.bit }} cache
         uses: actions/cache/save@main
