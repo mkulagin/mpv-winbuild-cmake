@@ -38,35 +38,50 @@ jobs:
         uses: actions/cache/restore@main
         with:
           path: clang_root
-          key: ${{ secrets.CACHE_VERSION }}-clang_root-llvm
+          key: ${{ secrets.CACHE_VERSION }}-llvm-clang_root-${{ github.run_id }}
+          restore-keys: |
+            ${{ secrets.CACHE_VERSION }}-llvm-clang_root
+            ${{ secrets.CACHE_VERSION }}-clang_root-llvm
 
       - name: Loading x86_64 toolchain
         id: x86_64_cache
         uses: actions/cache/restore@main
         with:
           path: build_x86_64
-          key: ${{ secrets.CACHE_VERSION }}-clang-x86_64_toolchain-llvm
+          key: ${{ secrets.CACHE_VERSION }}-llvm-clang_x86_64_toolchain-${{ github.run_id }}
+          restore-keys: |
+            ${{ secrets.CACHE_VERSION }}-llvm-clang_x86_64_toolchain
+            ${{ secrets.CACHE_VERSION }}-clang-x86_64_toolchain-llvm
 
       - name: Loading x86_64_v3 toolchain
         id: x86_64_v3_cache
         uses: actions/cache/restore@main
         with:
           path: build_x86_64_v3
-          key: ${{ secrets.CACHE_VERSION }}-clang-x86_64_v3_toolchain-llvm
+          key: ${{ secrets.CACHE_VERSION }}-llvm-clang_x86_64_v3_toolchain-${{ github.run_id }}
+          restore-keys: |
+            ${{ secrets.CACHE_VERSION }}-llvm-clang_x86_64_v3_toolchain
+            ${{ secrets.CACHE_VERSION }}-clang-x86_64_v3_toolchain-llvm
 
       - name: Loading i686 toolchain
         id: i686_cache
         uses: actions/cache/restore@main
         with:
           path: build_i686
-          key: ${{ secrets.CACHE_VERSION }}-clang-i686_toolchain-llvm
+          key: ${{ secrets.CACHE_VERSION }}-llvm-clang_i686_toolchain-${{ github.run_id }}
+          restore-keys: |
+            ${{ secrets.CACHE_VERSION }}-llvm-clang_i686_toolchain
+            ${{ secrets.CACHE_VERSION }}-clang-i686_toolchain-llvm
 
       - name: Loading aarch64 toolchain
         id: aarch64_cache
         uses: actions/cache/restore@main
         with:
           path: build_aarch64
-          key: ${{ secrets.CACHE_VERSION }}-clang-aarch64_toolchain-llvm
+          key: ${{ secrets.CACHE_VERSION }}-llvm-clang_aarch64_toolchain-${{ github.run_id }}
+          restore-keys: |
+            ${{ secrets.CACHE_VERSION }}-llvm-clang_aarch64_toolchain
+            ${{ secrets.CACHE_VERSION }}-clang-aarch64_toolchain-llvm
 
       - name: Loading repository cache
         id: repository_cache
@@ -74,7 +89,10 @@ jobs:
         uses: actions/cache/restore@main
         with:
           path: src_packages
-          key: ${{ secrets.CACHE_VERSION }}-repository-llvm
+          key: ${{ secrets.CACHE_VERSION }}-llvm-repository-${{ github.run_id }}
+          restore-keys: |
+            ${{ secrets.CACHE_VERSION }}-llvm-repository
+            ${{ secrets.CACHE_VERSION }}-repository-llvm
 
       - name: Running custom command
         if: ${{ github.event.inputs.command != '' }}
@@ -161,38 +179,38 @@ jobs:
         uses: actions/cache/save@main
         with:
           path: clang_root
-          key: ${{ secrets.CACHE_VERSION }}-clang_root-llvm
+          key: ${{ secrets.CACHE_VERSION }}-llvm-clang_root-${{ github.run_id }}
 
       - name: Saving x86_64 toolchain
         uses: actions/cache/save@main
         with:
           path: build_x86_64
-          key: ${{ secrets.CACHE_VERSION }}-clang-x86_64_toolchain-llvm
+          key: ${{ secrets.CACHE_VERSION }}-llvm-clang_x86_64_toolchain-${{ github.run_id }}
 
       - name: Saving x86_64_v3 toolchain
         uses: actions/cache/save@main
         with:
           path: build_x86_64_v3
-          key: ${{ secrets.CACHE_VERSION }}-clang-x86_64_v3_toolchain-llvm
+          key: ${{ secrets.CACHE_VERSION }}-llvm-clang_x86_64_v3_toolchain-${{ github.run_id }}
 
       - name: Saving i686 toolchain
         uses: actions/cache/save@main
         with:
           path: build_i686
-          key: ${{ secrets.CACHE_VERSION }}-clang-i686_toolchain-llvm
+          key: ${{ secrets.CACHE_VERSION }}-llvm-clang_i686_toolchain-${{ github.run_id }}
 
       - name: Saving aarch64 toolchain
         uses: actions/cache/save@main
         with:
           path: build_aarch64
-          key: ${{ secrets.CACHE_VERSION }}-clang-aarch64_toolchain-llvm
+          key: ${{ secrets.CACHE_VERSION }}-llvm-clang_aarch64_toolchain-${{ github.run_id }}
 
       - name: Saving repository cache
         if: false
         uses: actions/cache/save@main
         with:
           path: src_packages
-          key: ${{ secrets.CACHE_VERSION }}-repository-llvm
+          key: ${{ secrets.CACHE_VERSION }}-llvm-repository-llvm-${{ github.run_id }}
 
   call_workflow:
     name: Run mpv_clang

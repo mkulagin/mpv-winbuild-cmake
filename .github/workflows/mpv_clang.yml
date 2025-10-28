@@ -74,26 +74,29 @@ jobs:
         with:
           path: |
             clang_root
-          key: ${{ secrets.CACHE_VERSION }}-clang_root-clang
+          key: ${{ secrets.CACHE_VERSION }}-clang-clang_root-${{ github.run_id }}
           restore-keys: |
-            ${{ secrets.CACHE_VERSION }}-clang_root-llvm
+            ${{ secrets.CACHE_VERSION }}-clang-clang_root
+            ${{ secrets.CACHE_VERSION }}-llvm-clang_root
 
       - name: Loading repository cache
         uses: actions/cache/restore@main
         with:
           path: src_packages
-          key: ${{ secrets.CACHE_VERSION }}-repository-clang
+          key: ${{ secrets.CACHE_VERSION }}-clang-repository-${{ github.run_id }}
           restore-keys: |
-            ${{ secrets.CACHE_VERSION }}-repository-llvm
+            ${{ secrets.CACHE_VERSION }}-clang-repository
+            ${{ secrets.CACHE_VERSION }}-llvm-repository
 
       - name: Loading ${{ matrix.bit }} toolchain cache
         uses: actions/cache/restore@main
         with:
           path: |
             build_${{ matrix.bit }}
-          key: ${{ secrets.CACHE_VERSION }}-clang-${{ matrix.bit }}_toolchain-clang
+          key: ${{ secrets.CACHE_VERSION }}-clang-clang_${{ matrix.bit }}_toolchain-${{ github.run_id }}
           restore-keys: |
-            ${{ secrets.CACHE_VERSION }}-clang-${{ matrix.bit }}_toolchain-llvm
+            ${{ secrets.CACHE_VERSION }}-clang-clang_${{ matrix.bit }}_toolchain
+            ${{ secrets.CACHE_VERSION }}-llvm-clang_${{ matrix.bit }}_toolchain
 
       - name: Running custom command
         if: ${{ github.event.inputs.command != '' }}
@@ -169,14 +172,14 @@ jobs:
         with:
           path: |
             clang_root
-          key: ${{ secrets.CACHE_VERSION }}-clang_root-clang
+          key: ${{ secrets.CACHE_VERSION }}-clang-clang_root-${{ github.run_id }}
 
       - name: Saving repository cache
         uses: actions/cache/save@main
         if: ${{ always() && matrix.bit == 'x86_64' }}
         with:
           path: src_packages
-          key: ${{ secrets.CACHE_VERSION }}-repository-clang
+          key: ${{ secrets.CACHE_VERSION }}-clang-repository-${{ github.run_id }}
 
       - name: Saving ${{ matrix.bit }} toolchain cache
         uses: actions/cache/save@main
@@ -184,13 +187,13 @@ jobs:
         with:
           path: |
             build_${{ matrix.bit }}
-          key: ${{ secrets.CACHE_VERSION }}-clang-${{ matrix.bit }}_toolchain-clang
+          key: ${{ secrets.CACHE_VERSION }}-clang-clang_${{ matrix.bit }}_toolchain-${{ github.run_id }}
 
       - name: Saving release_${{ matrix.bit }} cache
         uses: actions/cache/save@main
         with:
           path: release_${{ matrix.bit }}
-          key: ${{ secrets.CACHE_VERSION }}-release_${{ matrix.bit }}-${{ github.run_id }}
+          key: ${{ secrets.CACHE_VERSION }}-clang-release_${{ matrix.bit }}-${{ github.run_id }}
 
   release:
     name: Upload releases

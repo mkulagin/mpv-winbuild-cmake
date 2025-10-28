@@ -70,15 +70,18 @@ jobs:
         uses: actions/cache/restore@main
         with:
           path: build_${{ matrix.bit }}
-          key: ${{ secrets.CACHE_VERSION }}-gcc-${{ matrix.bit }}_toolchain-gcc
+          key: ${{ secrets.CACHE_VERSION }}-gcc-gcc_${{ matrix.bit }}_toolchain-${{ github.run_id }}
+          restore-keys: |
+            ${{ secrets.CACHE_VERSION }}-gcc-gcc_${{ matrix.bit }}_toolchain
 
       - name: Loading repository cache
         uses: actions/cache/restore@main
         with:
           path: src_packages
-          key: ${{ secrets.CACHE_VERSION }}-repository-gcc
+          key: ${{ secrets.CACHE_VERSION }}-gcc-repository-${{ github.run_id }}
           restore-keys: |
-            ${{ secrets.CACHE_VERSION }}-repository
+            ${{ secrets.CACHE_VERSION }}-gcc-repository
+            ${{ secrets.CACHE_VERSION }}-llvm-repository
 
       - name: Running custom command
         if: ${{ github.event.inputs.command != '' }}
@@ -150,14 +153,14 @@ jobs:
         if: always()
         with:
           path: build_${{ matrix.bit }}
-          key: ${{ secrets.CACHE_VERSION }}-gcc-${{ matrix.bit }}_toolchain-gcc
+          key: ${{ secrets.CACHE_VERSION }}-gcc-gcc_${{ matrix.bit }}_toolchain-${{ github.run_id }}
 
       - name: Saving repository cache
         uses: actions/cache/save@main
         if: false
         with:
           path: src_packages
-          key: ${{ secrets.CACHE_VERSION }}-repository-gcc
+          key: ${{ secrets.CACHE_VERSION }}-gcc-repository-${{ github.run_id }}
 
       - name: Saving release_${{ matrix.bit }} cache
         uses: actions/cache/save@main
